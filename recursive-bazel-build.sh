@@ -5,11 +5,10 @@ set -e
 # Non-standard depth-first recursive build of two modules
 
 cd modulea
-bazel clean
 bazel build :all
-./bazel-out/darwin-fastbuild/bin/ModuleARunner
+
+# switch modules, and build that
 
 cd ../modulex
-bazel clean
+.prebuild.sh
 bazel build :all
-./bazel-out/darwin-fastbuild/bin/ModuleXRunner
