@@ -26,3 +26,4 @@ user.bazelrc
 
 ./bazel-bin
 
+.DS_Store

@@ -1,6 +1,6 @@
-package com.example.moduleone;
+package com.example.modulea;
 
-public class GreetingOne {
+public class GreetingA {
     public static void sayHi() {
             System.out.println("Hi from module one!");
     }
