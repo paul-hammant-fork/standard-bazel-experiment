@@ -1,15 +1,32 @@
-You can go into either of `moduleone` or `moduletwo` and run a bazel build:
+# General description
+
+This code is wholly based on https://github.com/bazelbuild/bazel/tree/master/examples/java-native.
+
+This repo contains two modules - "Module A" and "Module X". The latter depends on the former to compile and exexute.
+
+## Maven example of intention
+
+Maven should be installed first.  We get to see Module X print to the console and invoke Module A which will do the same. This illustrates the dependency.
 
 ```
-$ bazel build --experimental_convenience_symlinks=ignore :all
-INFO: Analyzed target //:ProjectRunner (20 packages loaded, 349 targets configured).
-INFO: Found 1 target...
-Target //:ProjectRunner up-to-date:
-  bazel-bin/ProjectRunner.jar
-  bazel-bin/ProjectRunner
-INFO: Elapsed time: 50.416s, Critical Path: 7.61s
-INFO: 7 processes: 4 internal, 2 darwin-sandbox, 1 worker.
-INFO: Build completed successfully, 7 total actions
+$ mvn install
+$ cd modulex
+$ mvn exec:java -Dexec.mainClass="com.example.modulex.cmdline.Runner"
+[INFO] --- exec-maven-plugin:1.6.0:java (default-cli) @ bazel-recursuve-build-demo-module-x ---
+Hi from module X!
+Hi from module one!
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
 ```
 
-Those two are identical for now, but watch this space!
+That's the dfinition of success - those two "Hi from" modules.
+
+## Bazel example of need
+
+Bazel should be installed first.
+
+```
+./recursive-bazel-build.sh
+```
+
+The above script fails in a second compilation step of "module X". There was a dependency to Module A in Module X that is not expressed in Bazel build rules grammer. Module A is outside the workspace of Module X.
