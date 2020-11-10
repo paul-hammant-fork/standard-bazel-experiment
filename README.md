@@ -11,10 +11,9 @@ What's needed is a **depth-first recursive build** here, but using Bazel somehow
 Maven should be installed first.  We get to see Module X print to the console and invoke Module A which will do the same. This illustrates the dependency and proves that Maven too can work with this repo's two source trees. A corporate migrating from Maven (etc) to Bazel would not have `pom.xml` files as I do here.
 
 ```
-$ mvn install
- ** snip build output **
+$ mvn install | sed '/\[INFO\]/d' 
 $ cd modulex
-$ mvn exec:java -Dexec.mainClass="com.example.modulex.cmdline.Runner"| sed  '/[INFO]/d'
+$ mvn exec:java -Dexec.mainClass="com.example.modulex.cmdline.Runner" | sed '/\[INFO\]/d' 
 Hi from module X!
 Hi from module one!
 ```
