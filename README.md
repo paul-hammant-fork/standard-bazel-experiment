@@ -61,8 +61,8 @@ This Bazel build behaves as Maven's recursive depth-first build does. There's a 
 
 The magic is in these files though.
 
-* https://github.com/paul-hammant/non-standard-bazel-experiment/blob/trunk/recursive-bazel-build.sh
-* https://github.com/paul-hammant/non-standard-bazel-experiment/blob/trunk/modulex/.prebuild.sh
-* https://github.com/paul-hammant/non-standard-bazel-experiment/blob/trunk/modulex/depsOutsideWorkspace/BUILD
+* [recursive-bazel-build.sh](https://github.com/paul-hammant/non-standard-bazel-experiment/blob/trunk/recursive-bazel-build.sh)
+* [modulex/.prebuild.sh](https://github.com/paul-hammant/non-standard-bazel-experiment/blob/trunk/modulex/.prebuild.sh)
+* [modulex/depsOutsideWorkspace/BUILD](https://github.com/paul-hammant/non-standard-bazel-experiment/blob/trunk/modulex/depsOutsideWorkspace/BUILD)
 
 Monorepo life with hundreds of different buildable-deployables all together in one dir structure and trunk, has other well documented nances though :)
