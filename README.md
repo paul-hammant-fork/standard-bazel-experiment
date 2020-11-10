@@ -15,7 +15,7 @@ $ mvn install | sed '/\[INFO\]/d'
 $ cd modulex
 $ mvn exec:java -Dexec.mainClass="com.example.modulex.cmdline.Runner" | sed '/\[INFO\]/d' 
 Hi from module X!
-Hi from module one!
+Hi from module A!
 ```
 
 That's the definition of success - those two "Hi from" both modules. Maven builds the right thing, after calculating deps. It also sorts out a classpath for an invocation of modulex (the depending module) in the last step.
@@ -34,7 +34,6 @@ Target //:ModuleARunner up-to-date:
 INFO: Elapsed time: 0.209s, Critical Path: 0.00s
 INFO: 1 process: 1 internal.
 INFO: Build completed successfully, 1 total action
-Hi from module one!
 adding: com/(in = 0) (out= 0)(stored 0%)
 adding: com/example/(in = 0) (out= 0)(stored 0%)
 adding: com/example/modulea/(in = 0) (out= 0)(stored 0%)
@@ -51,7 +50,7 @@ INFO: Build completed successfully, 1 total action
 
 $ modulex/bazel-bin/ModuleXRunner
 Hi from module X!
-Hi from module one!
+Hi from module A!
 ```
 
 Those last two lines of output show Java classes from `modulea` and `modulex` doing their thing together.
