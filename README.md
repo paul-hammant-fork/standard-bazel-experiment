@@ -4,7 +4,7 @@ This code here is wholly based on https://github.com/bazelbuild/bazel/tree/maste
 
 How to build both though, with two separate Bazel WORKSPACEs in one repo?
 
-What's needed is a **depth-first recursive build** here, but using Bazel somehow. Maven does **depth-first recursive builds** out of the box, but we want Bazel not Maven.  Bazel is a **directed graph buld system** and can't do a recursive build the Maven way. What this repo contains is some shell script schenigans to be a middle ground between Bazel and the **depth-first recursive build** way of Maven.
+What's needed is a **depth-first recursive build** here, but using Bazel somehow. Maven does **depth-first recursive builds** out of the box, but we want Bazel not Maven.  Bazel is a **directed graph build system** and can't do a recursive build the Maven way. What this repo contains is some shell script schenigans to be a middle ground between Bazel and the **depth-first recursive build** way of Maven.
 
 ## Maven example of intention
 
