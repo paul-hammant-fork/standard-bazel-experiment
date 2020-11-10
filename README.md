@@ -1,12 +1,14 @@
 # General description
 
-This code here is wholly based on https://github.com/bazelbuild/bazel/tree/master/examples/java-native which compiles Java into a native solution.
+This code here is wholly based on https://github.com/bazelbuild/bazel/tree/master/examples/java-native which compiles Java into a native solution using Bazel. Indeed that sub-directory of that repo is represented twice here:  "Module A" and "Module X" (modulea/ and modulex/). The latter depends on the former to compile and execute, even though that's beed added as a feature by me, and gratuitous.
 
-This repo contains two modules - "Module A" and "Module X". The latter depends on the former to compile and exexute. What's needed is a depth-first recursive build here. Maven does that out of the box.
+How to build both though, with two separate Bazel WORKSPACEs in one repo?
+
+What's needed is a **depth-first recursive build** here, but using Bazel somehow. Maven does **depth-first recursive builds** out of the box, but we want Bazel not Maven.  Bazel is a **directed graph buld system** and can't do a recursive build the Maven way. What this repo contains is some shell script schenigans to be a middle ground between Bazel and the **depth-first recursive build** way of Maven.
 
 ## Maven example of intention
 
-Maven should be installed first.  We get to see Module X print to the console and invoke Module A which will do the same. This illustrates the dependency.
+Maven should be installed first.  We get to see Module X print to the console and invoke Module A which will do the same. This illustrates the dependency and proves that Maven too can work with this repo's two source trees. A corporate migrating from Maven (etc) to Bazel would not have `pom.xml` files as I do here.
 
 ```
 $ mvn install
@@ -17,7 +19,7 @@ Hi from module X!
 Hi from module one!
 ```
 
-That's the definition of success - those two "Hi from" both modules. Maven builds the right thing, after calculating deps. It also sorts out a classpath for an invocation of modulex (the depending module).
+That's the definition of success - those two "Hi from" both modules. Maven builds the right thing, after calculating deps. It also sorts out a classpath for an invocation of modulex (the depending module) in the last step.
 
 ## Bazel mirroring Maven's bahavior
 
@@ -53,6 +55,14 @@ Hi from module X!
 Hi from module one!
 ```
 
-Those last two lines use Java classes from modulea and modulex.
+Those last two lines of output show Java classes from `modulea` and `modulex` doing their thing together.
 
-This Bazel build behaves as Maven's recursive depth-first build does.  There's a cheat - a tactical build of a jar of the output of `module a` and then dropping that into a `depsOutsideWorkspace` directory for use within the `module X` build. The jar in `depsOutsideWorkspace` is excluded from source control (it is mentioned in the `.gitignore` file).
+This Bazel build behaves as Maven's recursive depth-first build does. There's a cheat - a tactical build of a jar of the output of `module a` and then dropping that into a `depsOutsideWorkspace` directory for use within the `module X` build. The jar in `depsOutsideWorkspace` is excluded from source control (it is mentioned in the `.gitignore` file).
+
+The magic is in these files though.
+
+* https://github.com/paul-hammant/non-standard-bazel-experiment/blob/trunk/recursive-bazel-build.sh
+* https://github.com/paul-hammant/non-standard-bazel-experiment/blob/trunk/modulex/.prebuild.sh
+* https://github.com/paul-hammant/non-standard-bazel-experiment/blob/trunk/modulex/depsOutsideWorkspace/BUILD
+
+Monorepo life with hundreds of different buildable-deployables all together in one dir structure and trunk, has other well documented nances though :)
