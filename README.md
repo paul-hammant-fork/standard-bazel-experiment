@@ -20,7 +20,7 @@ Hi from module one!
 
 That's the definition of success - those two "Hi from" both modules. Maven builds the right thing, after calculating deps. It also sorts out a classpath for an invocation of modulex (the depending module) in the last step.
 
-## Bazel mirroring Maven's bahavior
+## Bazel mirroring Maven's depth-first recursive behavior
 
 Bazel should be installed first.
 
