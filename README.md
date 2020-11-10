@@ -57,7 +57,7 @@ Those last two lines of output show Java classes from `modulea` and `modulex` do
 
 This Bazel build behaves as Maven's recursive depth-first build does. There's a cheat - a tactical build of a jar of the output of `module a` and then dropping that into a `depsOutsideWorkspace` directory for use within the `module X` build. The jar in `depsOutsideWorkspace` is excluded from source control (it is mentioned in the `.gitignore` file).
 
-The magic is in these files though.
+The non-standard magic is in these files:
 
 * [recursive-bazel-build.sh](https://github.com/paul-hammant/non-standard-bazel-experiment/blob/trunk/recursive-bazel-build.sh)
 * [modulex/.prebuild.sh](https://github.com/paul-hammant/non-standard-bazel-experiment/blob/trunk/modulex/.prebuild.sh)
