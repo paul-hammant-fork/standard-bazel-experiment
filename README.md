@@ -4,13 +4,13 @@ This code here is wholly based on https://github.com/bazelbuild/bazel/tree/maste
 
 How to build both though, with two separate Bazel WORKSPACEs in one repo?
 
-What's needed is a **depth-first recursive build** here, but using Bazel somehow. Maven does **depth-first recursive builds** out of the box, but we want Bazel not Maven.  Bazel is a **directed graph build system** and can't do a recursive build the Maven way. What this repo contains is some shell script schenigans to be a middle ground between Bazel and the **depth-first recursive build** way of Maven.
+## Depth-first recursive vs directed graph
+
+What's needed is a **depth-first recursive build** here, but using Bazel somehow. Maven does **depth-first recursive builds** out of the box, but we want Bazel not Maven.  Bazel is a ordinarily a **directed graph build system** and does not do a recursive builds the Maven way without additional configuration. What this repo contains is some shell script shenanigans to be a middle ground between Bazel and the **depth-first recursive build** way of Maven.
 
 ## Maven example of intention
 
-Note: Maven is naturally a depth-first recursive build technology.
-
-Maven should be installed first.  We get to see Module X print to the console and invoke Module A which will do the same. This illustrates the dependency and proves that Maven too can work with this repo's two source trees. A corporate migrating from Maven (etc) to Bazel would not have `pom.xml` files as I do here.
+Maven should be installed first. We get to see `Module X` print to the console and invoke `Module A` which will do the same. This illustrates the dependency and proves that Maven too can work with this repo's two source trees. A corporate migrating from Maven (etc) to Bazel would not have `pom.xml` files as I do here.
 
 ```
 $ mvn install | sed '/\[INFO\]/d' 
@@ -26,7 +26,7 @@ That's the definition of success - those two "Hi from" both modules. Maven build
 
 Note: Bazel should be installed first.
 
-Note2: Bazel is NOT naturally a **depth-first recursive** build technology, it is based on acyclic directed graphs. We have a top-level shell script to make Bazel behave like a depth-first recursive build technology.
+Note2: Bazel is NOT  **depth-first recursive** build technology without additional configuration, it is based on acyclic directed graphs. We have a top-level shell script to make Bazel behave like a depth-first recursive build technology.
 
 
 ```
@@ -60,7 +60,7 @@ Hi from module A!
 
 Those last two lines of output show Java classes from `modulea` and `modulex` doing their thing together.
 
-This Bazel build behaves as Maven's recursive depth-first build does. There's a cheat - a tactical build of a jar of the output of `module a` and then dropping that into a `depsOutsideWorkspace` directory for use within the `module X` build. The jar in `depsOutsideWorkspace` is excluded from source control (it is mentioned in the `.gitignore` file).
+This Bazel build behaves as Maven's depth-first recursive build does. There is a cheat - a tactical build of a jar of the output of `module a` and then dropping that into a `depsOutsideWorkspace` directory for use within the `module X` build. The jar in `depsOutsideWorkspace` is excluded from source control (it is mentioned in the `.gitignore` file).
 
 The non-standard magic is in these files:
 
