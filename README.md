@@ -68,4 +68,4 @@ The non-standard magic is in these files:
 2. [modulex/.prebuild.sh](https://github.com/paul-hammant/non-standard-bazel-experiment/blob/trunk/modulex/.prebuild.sh) - makes a JAR of `module a` classes and puts it in the `module x` WORKSPACE as if it were under source control (but it is not)
 3. [modulex/depsOutsideWorkspace/BUILD](https://github.com/paul-hammant/non-standard-bazel-experiment/blob/trunk/modulex/depsOutsideWorkspace/BUILD) - a Bazel rule for `module x` that indicates a JAR that the above two (#1 & #2) put in place
 
-Monorepo life with hundreds of different buildable-deployables all together in one dir structure and trunk, has other well documented nances though :)
+Monorepo life, with hundreds of different buildable-deployables all together in one dir structure and trunk, has other well documented nuances though :)
