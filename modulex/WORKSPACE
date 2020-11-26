@@ -1,0 +1,5 @@
+local_repository(
+    name = "modulea",
+    # path = "/scm/oss/standard-bazel-experiment/modulea",
+    path = "../modulea",
+)

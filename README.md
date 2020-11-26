@@ -60,12 +60,10 @@ Hi from module A!
 
 Those last two lines of output show Java classes from `modulea` and `modulex` doing their thing together.
 
-This Bazel build behaves as Maven's depth-first recursive build does. There is a cheat - a tactical build of a jar of the output of `module a` and then dropping that into a `depsOutsideWorkspace` directory for use within the `module X` build. The jar in `depsOutsideWorkspace` is excluded from source control (it is mentioned in the `.gitignore` file).
+This Bazel build behaves as Maven's depth-first recursive build does. 
 
-The non-standard magic is in these files:
+Key file:
 
-1. [recursive-bazel-build.sh](https://github.com/paul-hammant/non-standard-bazel-experiment/blob/trunk/recursive-bazel-build.sh) - builds `module a` with Bazel, invokes `.prebuild.sh` (mentioned in #2), builds `module x` wih Bazel
-2. [modulex/.prebuild.sh](https://github.com/paul-hammant/non-standard-bazel-experiment/blob/trunk/modulex/.prebuild.sh) - makes a JAR of `module a` classes and puts it in the `module x` WORKSPACE as if it were under source control (but it is not)
-3. [modulex/depsOutsideWorkspace/BUILD](https://github.com/paul-hammant/non-standard-bazel-experiment/blob/trunk/modulex/depsOutsideWorkspace/BUILD) - a Bazel rule for `module x` that indicates a JAR that the above two (#1 & #2) put in place
+1. [recursive-bazel-build.sh](https://github.com/paul-hammant-fork/standard-bazel-experiment/blob/trunk/recursive-bazel-build.sh) - builds `module a` with Bazel then builds `module x` wih Bazel
 
 Monorepo life, with hundreds of different buildable-deployables all together in one dir structure and trunk, has other well documented nuances though :)

@@ -28,5 +28,3 @@ user.bazelrc
 
 .DS_Store
 target/
-
-depsOutsideWorkspace.jar
